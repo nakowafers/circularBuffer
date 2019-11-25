@@ -23,5 +23,29 @@ namespace CircularBuffer
                 _itemsAdded = 0;
             }
         }
+
+        public T Get()
+        {
+
+            T valueToReturn = default(T);
+
+            for (var i = 0; i < _ringBuffer.Length; i++)
+            {
+                if (!_ringBuffer[i].Equals(default(T)))
+                {
+                     valueToReturn = _ringBuffer[i];
+
+                    _ringBuffer[i] = default(T);
+
+                    break;
+                }
+            }
+
+            if (valueToReturn.Equals(default(T))){
+                throw new InvalidOperationException("No items in Circular Buffer!");
+            }
+
+            return valueToReturn;
+        }
     }
 }
