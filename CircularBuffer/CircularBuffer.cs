@@ -26,22 +26,23 @@ namespace CircularBuffer
 
         public T Get()
         {
-
-            T valueToReturn = default(T);
+            T defaultValue = default;
+            T valueToReturn = default;
 
             for (var i = 0; i < _ringBuffer.Length; i++)
             {
-                if (!_ringBuffer[i].Equals(default(T)))
+                if (!_ringBuffer[i].Equals(defaultValue))
                 {
                      valueToReturn = _ringBuffer[i];
 
-                    _ringBuffer[i] = default(T);
+                    _ringBuffer[i] = defaultValue;
 
                     break;
                 }
             }
 
-            if (valueToReturn.Equals(default(T))){
+            if (valueToReturn.Equals(defaultValue))
+            {
                 throw new InvalidOperationException("No items in Circular Buffer!");
             }
 

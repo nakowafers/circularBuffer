@@ -111,7 +111,9 @@ namespace CircularBufferTests
 
             // act
             // assert
-            Assert.That(() => circularBuffer.Get(), Throws.InvalidOperationException);
+
+            Assert.Throws<System.InvalidOperationException>(() => circularBuffer.Get());
+            //Assert.That(() => circularBuffer.Get(), Throws.InvalidOperationException);
         }
     }
 }
