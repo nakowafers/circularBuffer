@@ -17,8 +17,7 @@ namespace CircularBuffer
 
             _ringBuffer[_itemsAdded++] = item;
 
-
-            if (_itemsAdded > 5)
+            if (_itemsAdded >= _ringBuffer.Length)
             {
                 _itemsAdded = 0;
             }

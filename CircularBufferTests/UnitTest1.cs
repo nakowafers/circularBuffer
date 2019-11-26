@@ -115,5 +115,30 @@ namespace CircularBufferTests
             Assert.Throws<System.InvalidOperationException>(() => circularBuffer.Get());
             //Assert.That(() => circularBuffer.Get(), Throws.InvalidOperationException);
         }
+
+        [Test]
+        public void Get_WhenAddedNumberIsDefaultValue_ReturnsAddedNumber()
+        {
+            int[] ringBufferArray = new int[] {0, 1, 0, 0, 0 };
+            var ringBuffer = new RingBuffer<int>(ringBufferArray);
+
+            var returnedValue = ringBuffer.Get();
+
+            Assert.That(returnedValue, Is.EqualTo(0));   
+        }
+
+        [Test]
+        public void Put_WhenAddingMoreItemsThanBufferSize_ReturnsOldest()
+        {
+            int[] ringBufferArray = new int[3];
+            var ringBuffer = new RingBuffer<int>(ringBufferArray);
+
+            ringBuffer.Put(21);
+            ringBuffer.Put(22);
+            ringBuffer.Put(23); 
+            ringBuffer.Put(24);
+
+            Assert.That(ringBufferArray[0], Is.EqualTo(24));
+        }
     }
 }
