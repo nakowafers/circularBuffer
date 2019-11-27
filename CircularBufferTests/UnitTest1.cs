@@ -82,10 +82,13 @@ namespace CircularBufferTests
         public void Get_Number_ReturnSecondNumber()
         {
             // arrange
-            var array = new int[6] { 20, 21, 22, 23, 24, 25 };
+            var array = new int[6];
             var circularBuffer = new RingBuffer<int>(array);
 
             // act
+            circularBuffer.Put(20);
+            circularBuffer.Put(21);
+
             var firstNumber = circularBuffer.Get();
             var secondNumber = circularBuffer.Get();
 
@@ -99,15 +102,8 @@ namespace CircularBufferTests
         public void Get_DefaultValue_ReturnException()
         {
             // arrange
-            var array = new int[6] { 22, 22, 22, 22, 22, 22 };
+            var array = new int[6];
             var circularBuffer = new RingBuffer<int>(array);
-
-            circularBuffer.Get();
-            circularBuffer.Get();
-            circularBuffer.Get();
-            circularBuffer.Get();
-            circularBuffer.Get();
-            circularBuffer.Get();
 
             // act
             // assert
@@ -119,9 +115,10 @@ namespace CircularBufferTests
         [Test]
         public void Get_WhenAddedNumberIsDefaultValue_ReturnsAddedNumber()
         {
-            int[] ringBufferArray = new int[] {0, 1, 0, 0, 0 };
+            int[] ringBufferArray = new int[6];
             var ringBuffer = new RingBuffer<int>(ringBufferArray);
 
+            ringBuffer.Put(default);
             var returnedValue = ringBuffer.Get();
 
             Assert.That(returnedValue, Is.EqualTo(0));   
