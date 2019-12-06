@@ -7,12 +7,14 @@ namespace CircularBuffer
         private T[] _ringBuffer;
         private int _itemsAdded;
         private int _totalItemsInList;
+        private int _oldestItemIndex;
 
         public RingBuffer(T[] array)
         {
             _ringBuffer = array;
             _itemsAdded = 0;
             _totalItemsInList = 0;
+            _oldestItemIndex = 0;
         }
 
         public void Put(T item)
@@ -33,9 +35,15 @@ namespace CircularBuffer
                 throw new InvalidOperationException("No items in Circular Buffer!");
             }
 
-            int itemPosition = _ringBuffer.Length - _totalItemsInList - 1;
+            if (_oldestItemIndex >= _ringBuffer.Length)
+            {
+                _oldestItemIndex = 0;
+            }
+
+            int itemPosition = _oldestItemIndex;
             T valueToReturn = _ringBuffer[itemPosition];
             _totalItemsInList--;
+            _oldestItemIndex++;
 
             return valueToReturn;
         }
